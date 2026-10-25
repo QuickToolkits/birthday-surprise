@@ -176,155 +176,39 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =====================================
-     6. BIRTHDAY TUNE
-     Synthesized melody using Web Audio API
-  ===================================== */
+   BIRTHDAY SONG
+===================================== */
 
-  let audioContext = null;
-  let masterGain = null;
-  let tuneOn = false;
-  let tuneTimer = null;
-  let noteIndex = 0;
+const musicBtn = document.querySelector("#musicBtn");
 
-  const musicBtn = $("#musicBtn");
+const birthdaySong = new Audio("./Love.mp3");
+birthdaySong.loop = true;
+birthdaySong.preload = "auto";
 
-  const melody = [
-    392, 392, 440, 392, 523, 494,
-    392, 392, 440, 392, 587, 523,
-    392, 392, 784, 659, 523, 494,
-    440, 698, 698, 659, 523, 587, 523,
-  ];
+let tuneStarted = false;
 
-  const durations = [
-    0.28, 0.28, 0.55, 0.55, 0.55, 1,
-    0.28, 0.28, 0.55, 0.55, 0.55, 1,
-    0.28, 0.28, 0.55, 0.55, 0.55, 0.55,
-    1, 0.28, 0.28, 0.55, 0.55, 0.55, 1,
-  ];
+async function startTune() {
+  if (tuneStarted) return;
 
-  function updateMusicButton() {
-    if (!musicBtn) return;
+  try {
+    await birthdaySong.play();
+    tuneStarted = true;
 
-    musicBtn.textContent = tuneOn
-      ? "♫ Birthday tune: ON"
-      : "♫ Play birthday tune";
-
-    musicBtn.setAttribute(
-      "aria-pressed",
-      String(tuneOn)
-    );
-  }
-
-  function playNote(frequency, duration) {
-    if (!audioContext || !masterGain) return;
-
-    const now = audioContext.currentTime;
-    const oscillator = audioContext.createOscillator();
-    const noteGain = audioContext.createGain();
-
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(frequency, now);
-
-    noteGain.gain.setValueAtTime(0.0001, now);
-    noteGain.gain.exponentialRampToValueAtTime(
-      0.12,
-      now + 0.025
-    );
-
-    noteGain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      now + duration * 0.9
-    );
-
-    oscillator.connect(noteGain);
-    noteGain.connect(masterGain);
-
-    oscillator.start(now);
-    oscillator.stop(now + duration);
-  }
-
-  function playNextNote() {
-    if (!tuneOn) return;
-
-    const duration = durations[noteIndex];
-
-    playNote(melody[noteIndex], duration);
-
-    noteIndex = (noteIndex + 1) % melody.length;
-
-    tuneTimer = setTimeout(
-      playNextNote,
-      duration * 1000 + 60
-    );
-  }
-
-  async function startTune() {
-    try {
-      const AudioContextClass =
-        window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextClass) {
-        if (musicBtn) {
-          musicBtn.textContent = "Audio not supported";
-        }
-        return;
-      }
-
-      if (!audioContext) {
-        audioContext = new AudioContextClass();
-
-        masterGain = audioContext.createGain();
-        masterGain.gain.value = 0.65;
-        masterGain.connect(audioContext.destination);
-      }
-
-      if (audioContext.state === "suspended") {
-        await audioContext.resume();
-      }
-
-      if (tuneOn) return;
-
-      tuneOn = true;
-      updateMusicButton();
-      playNextNote();
-    } catch (error) {
-      console.warn("Birthday tune could not start:", error);
+    if (musicBtn) {
+      musicBtn.textContent = "♫ Your Song ❤️";
+      musicBtn.setAttribute("aria-label", "Birthday song playing");
+      musicBtn.setAttribute("aria-pressed", "true");
+    }
+  } catch (error) {
+    if (musicBtn) {
+      musicBtn.textContent = "♫ Play My Song ❤️";
     }
   }
+}
 
-  function stopTune() {
-    tuneOn = false;
-
-    clearTimeout(tuneTimer);
-    updateMusicButton();
-
-    if (masterGain && audioContext) {
-      masterGain.gain.setTargetAtTime(
-        0.0001,
-        audioContext.currentTime,
-        0.04
-      );
-    }
-  }
-
-  if (musicBtn) {
-    musicBtn.addEventListener("click", async () => {
-      if (tuneOn) {
-        stopTune();
-      } else {
-        if (masterGain && audioContext) {
-          masterGain.gain.setTargetAtTime(
-            0.65,
-            audioContext.currentTime,
-            0.04
-          );
-        }
-
-        await startTune();
-      }
-    });
-  }
-
+if (musicBtn) {
+  musicBtn.addEventListener("click", startTune);
+}
   /* =====================================
      7. CONFETTI ANIMATION
   ===================================== */
