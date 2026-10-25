@@ -1,0 +1,862 @@
+
+/* =====================================
+   ROMANTIC BIRTHDAY WEBSITE
+   File: style.css
+===================================== */
+
+:root {
+  --pink: #ff4d91;
+  --pink-light: #ffb5d0;
+  --pink-dark: #8e1b50;
+  --gold: #ffd17a;
+  --background: #08040f;
+  --text: #fff2f7;
+  --muted: #f3cad9;
+  --heading-font: Georgia, "Times New Roman", serif;
+  --body-font: "Trebuchet MS", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--body-font);
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+#app {
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: var(--background);
+}
+
+/* =====================================
+   HERO / WELCOME SECTION
+===================================== */
+
+.scene {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 50px 20px 90px;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  z-index: -2;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #772044 0%,
+      #39133f 38%,
+      #16091f 65%,
+      #08040f 100%
+    );
+
+  animation: aurora 9s ease-in-out infinite alternate;
+}
+
+@keyframes aurora {
+  0% {
+    filter: hue-rotate(-12deg) brightness(0.85);
+    transform: scale(1);
+  }
+
+  100% {
+    filter: hue-rotate(20deg) brightness(1.2);
+    transform: scale(1.08);
+  }
+}
+
+.hero {
+  width: min(760px, 100%);
+  padding: 25px 8px;
+  text-align: center;
+  animation: heroEntrance 1.2s ease both;
+}
+
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.eyebrow {
+  color: #f8b6d0;
+  letter-spacing: 3px;
+  line-height: 1.8;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.hero-heart {
+  display: inline-block;
+  margin: 25px 0 15px;
+  font-size: clamp(5rem, 15vw, 8rem);
+
+  filter: drop-shadow(0 0 25px var(--pink));
+  text-shadow: 0 0 35px var(--pink);
+
+  animation: heartbeat 1.35s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  15% {
+    transform: scale(1.14);
+  }
+
+  30% {
+    transform: scale(0.98);
+  }
+
+  45% {
+    transform: scale(1.17);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading-font);
+  font-weight: 500;
+}
+
+h1 {
+  margin: 12px 0 20px;
+  font-size: clamp(2.7rem, 8vw, 5.7rem);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    100deg,
+    #fff1f7 0%,
+    #ff8bb8 45%,
+    #ffd9a3 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  max-width: 530px;
+  margin: 0 auto 30px;
+  color: #f5ccdc;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.9;
+}
+
+.hero::after {
+  content: "✦  ✧  ·  ✦  ·  ✧  ✦";
+  display: block;
+  margin-top: 28px;
+  color: var(--gold);
+  letter-spacing: 10px;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+    text-shadow: 0 0 20px var(--gold);
+  }
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.primary-btn {
+  position: relative;
+  overflow: hidden;
+
+  padding: 15px 26px;
+  border: 1px solid var(--pink-light);
+  border-radius: 50px;
+
+  background: linear-gradient(
+    135deg,
+    #d83f7d,
+    #8e1b50
+  );
+
+  color: white;
+  box-shadow:
+    0 0 25px #d83f7d55,
+    inset 0 1px #ffffff55;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.primary-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffffff55,
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+}
+
+.primary-btn:hover::before {
+  left: 150%;
+}
+
+.primary-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 0 40px #ff4d9180;
+}
+
+.primary-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+   STARS AND FLOATING DECORATIONS
+===================================== */
+
+.stars,
+.float-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffe7f1;
+
+  box-shadow:
+    0 0 8px 2px #f9a4c8,
+    0 0 18px #ff4d91;
+
+  animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  color: #eeb5cb;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.scroll-cue span {
+  font-size: 1.5rem;
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* =====================================
+   GENERAL SECTIONS
+===================================== */
+
+.section {
+  position: relative;
+  padding: clamp(65px, 10vw, 110px) 20px;
+  overflow: hidden;
+}
+
+.section-inner {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.section-kicker {
+  color: #f5a9c8;
+  font-size: 0.73rem;
+  letter-spacing: 3px;
+  line-height: 1.8;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 14px 0 20px;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.section-copy {
+  max-width: 620px;
+  margin: 0 auto 35px;
+  color: var(--muted);
+  line-height: 1.9;
+  text-align: center;
+}
+
+/* Scroll reveal */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================
+   LOVE LETTER
+===================================== */
+
+#letterSection {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #35102e,
+      #16091f 55%,
+      #08040f 100%
+    );
+}
+
+.letter-wrap {
+  position: relative;
+  width: min(700px, 100%);
+  margin: 40px auto 0;
+  transform: rotate(-0.4deg);
+}
+
+.letter-wrap::before,
+.letter-wrap::after {
+  content: "♥";
+  position: absolute;
+  z-index: 2;
+  color: #ff6fa9;
+  font-size: 2.2rem;
+
+  filter: drop-shadow(0 0 12px var(--pink));
+  animation: heartbeat 1.5s infinite;
+}
+
+.letter-wrap::before {
+  top: -23px;
+  left: -12px;
+}
+
+.letter-wrap::after {
+  right: -12px;
+  bottom: -23px;
+  animation-delay: 0.5s;
+}
+
+.letter {
+  position: relative;
+  padding: clamp(26px, 6vw, 52px);
+
+  border: 1px solid #ffffff55;
+  border-radius: 7px 20px 7px 20px;
+
+  background: linear-gradient(
+    145deg,
+    #fff4e9,
+    #f8dce4
+  );
+
+  color: #4d1a30;
+
+  box-shadow:
+    0 25px 70px #0008,
+    0 0 35px #ff4d9115;
+}
+
+.letter::before {
+  content: "♥";
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  color: #cb4777;
+  opacity: 0.65;
+}
+
+.letter h3 {
+  margin: 0 0 24px;
+  color: #8f1746;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  line-height: 1.4;
+}
+
+.letter p {
+  margin: 0 0 19px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2.6vw, 1.12rem);
+  line-height: 2;
+}
+
+.signature {
+  margin-top: 30px;
+  color: #9b2455;
+  font-family: var(--heading-font);
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.7;
+  text-align: right;
+}
+
+/* =====================================
+   PHOTO / MEMORY SECTION
+===================================== */
+
+#memories {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #54143f,
+      #200b2a 60%,
+      #08040f
+    );
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 30px);
+  margin-top: 40px;
+}
+
+.photo-card {
+  position: relative;
+  min-width: 0;
+  padding: 12px 12px 22px;
+
+  background: #fff0f5;
+  color: #66203e;
+
+  box-shadow: 0 20px 45px #0007;
+
+  opacity: 0;
+  transform: translateY(30px) rotate(-2deg);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.photo-card:nth-child(2) {
+  transform: translateY(30px) rotate(2deg);
+  transition-delay: 0.15s;
+}
+
+.photo-card.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(-2deg);
+  animation: photoEntrance 0.9s ease both;
+}
+
+.photo-card:nth-child(2).visible {
+  transform: translateY(0) rotate(2deg);
+}
+
+@keyframes photoEntrance {
+  from {
+    filter: blur(5px);
+  }
+
+  to {
+    filter: blur(0);
+  }
+}
+
+.photo-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #54132f,
+    #b84977
+  );
+}
+
+.photo-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.photo-card:hover .photo-frame img {
+  transform: scale(1.04);
+}
+
+.photo-placeholder {
+  padding: 15px;
+  color: #ffe7f0;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.photo-placeholder b {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 2.8rem;
+}
+
+.photo-placeholder small {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.photo-label {
+  padding: 15px 5px 5px;
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.upload-label {
+  display: block;
+  margin-top: 14px;
+  color: #f7c4d8;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.upload-label input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 8px;
+  color: #f9dce8;
+  font-size: 0.75rem;
+}
+
+.upload-label input::file-selector-button {
+  margin-right: 7px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 30px;
+  background: #8f1746;
+  color: white;
+  cursor: pointer;
+}
+
+/* =====================================
+   BIRTHDAY FINALE
+===================================== */
+
+.finale {
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      #702047,
+      #351026 50%,
+      #10050d 100%
+    );
+
+  text-align: center;
+}
+
+.cake {
+  display: block;
+  margin: 25px 0;
+  font-size: clamp(5rem, 14vw, 7.5rem);
+  filter: drop-shadow(0 0 25px #ff6fa9);
+
+  animation: cakeFloat 3s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-13px) rotate(2deg);
+  }
+}
+
+.finale h2 {
+  margin: 0 0 22px;
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
+  line-height: 1.2;
+}
+
+.finale p {
+  max-width: 580px;
+  margin: 0 auto 28px;
+  color: #f4c8d9;
+  line-height: 1.9;
+}
+
+#wishMessage {
+  padding: 20px;
+  border: 1px solid #ff9bc2;
+  border-radius: 18px;
+  background: #ffffff0d;
+  box-shadow: 0 0 30px #ff4d9120;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer {
+  padding: 27px 18px 35px;
+  background: #160711;
+  color: #c88ba5;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* =====================================
+   FLOATING MUSIC BUTTON
+===================================== */
+
+.music-control {
+  position: fixed;
+  z-index: 20;
+  right: 16px;
+  bottom: 16px;
+
+  padding: 12px 17px;
+  border: 1px solid #ffc0d8;
+  border-radius: 50px;
+
+  background: #7f1945ee;
+  color: white;
+
+  box-shadow: 0 8px 28px #0007;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.music-control:hover {
+  transform: translateY(-3px);
+  background: #b52d69;
+}
+
+.music-control[aria-pressed="true"] {
+  background: #c63d76;
+  box-shadow: 0 0 24px #ff4d9160;
+}
+
+/* =====================================
+   CONFETTI CANVAS
+===================================== */
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+/* =====================================
+   MOBILE RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 600px) {
+  .scene {
+    padding: 40px 18px 90px;
+  }
+
+  .eyebrow {
+    font-size: 0.67rem;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 11vw, 3.7rem);
+  }
+
+  .lead {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .section {
+    padding: 65px 18px;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .letter-wrap {
+    transform: none;
+  }
+
+  .letter {
+    padding: 28px 22px;
+  }
+
+  .letter p {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .photo-grid {
+    grid-template-columns: 1fr;
+    width: min(100%, 350px);
+    margin: 35px auto 0;
+    gap: 28px;
+  }
+
+  .photo-card,
+  .photo-card:nth-child(2) {
+    transform: translateY(25px);
+  }
+
+  .photo-card.visible,
+  .photo-card:nth-child(2).visible {
+    transform: translateY(0);
+  }
+
+  .photo-frame {
+    aspect-ratio: 4 / 4.5;
+  }
+
+  .music-control {
+    right: 10px;
+    bottom: 10px;
+    padding: 10px 13px;
+    font-size: 0.78rem;
+  }
+
+  .scroll-cue {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* =====================================
+   ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
